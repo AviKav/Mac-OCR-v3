@@ -14,8 +14,17 @@ struct Output: Codable {
 }
 
 
+
+guard VNRecognizeTextRequest.currentRevision == 3 else {
+    fatalError("OCR revision doesn't match hardcoded version.")
+}
+
+guard CommandLine.arguments.endIndex == 2 else {
+    fatalError("Wrong number of arguments.")
+}
 let url = NSURL.fileURL(withPath: CommandLine.arguments[1])
 let requestHandler = VNImageRequestHandler(url: url)
+
 let image = CGImageSourceCreateWithURL(url as CFURL, nil)!
 let props  = CGImageSourceCopyPropertiesAtIndex(image, 0, nil)! as NSDictionary
 
@@ -26,6 +35,8 @@ encoder.outputFormatting = .prettyPrinted
 
 // Create a new request to recognize text.
 let request = VNRecognizeTextRequest()
+
+
 
 try! requestHandler.perform([request])
 let observations = request.results!
