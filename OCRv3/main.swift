@@ -32,8 +32,8 @@ let requestHandler = VNImageRequestHandler(url: url)
 let image = CGImageSourceCreateWithURL(url as CFURL, nil)!
 let props  = CGImageSourceCopyPropertiesAtIndex(image, 0, nil)! as NSDictionary
 
-let imageHeight = props["PixelHeight"] as! Int + 1
-let imageWidth = props["PixelWidth"] as! Int + 1
+let imageHeight = props["PixelHeight"] as! Int
+let imageWidth = props["PixelWidth"] as! Int
 let encoder = JSONEncoder()
 encoder.outputFormatting = .prettyPrinted
 
